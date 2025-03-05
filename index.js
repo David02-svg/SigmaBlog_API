@@ -230,7 +230,7 @@ application.put('/posts/:id', async (req, res) => {
 application.delete('/posts/:id', async (req, res) => {
   const client = await pool.connect();
   const id = req.params.id;
-  const { userId } = req.body || {}; ;
+  const { userId } = req.body || {};
 
   const authToken = req.headers.authorization;
   const token = authToken.split(' ')[1].replace(/"/g, '');
