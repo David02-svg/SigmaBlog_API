@@ -52,7 +52,7 @@ application.post("/auth/signup", async (req, res) => {
       });
 
     await client.query(
-      "INSERT INTO users (username, password) VALUES ($1, $2)",
+      "INSERT INTO users (username, password, created_at) VALUES ($1, $2, CURRENT_TIMESTAMP)",
       [username, hashedPassword],
     );
 
@@ -187,11 +187,9 @@ application.post("/posts", async (req, res) => {
 
       res.json(post.rows[0]);
     } else {
-      res
-        .status(400)
-        .json({
-          error: `User with user_id: ${userId} does not exist. Please check the ID.`,
-        });
+      res.status(400).json({
+        error: `User with user_id: ${userId} does not exist. Please check the ID.`,
+      });
     }
   } catch (err) {
     res.status(500).json({
